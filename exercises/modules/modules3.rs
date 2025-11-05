@@ -8,8 +8,6 @@
 // Execute `rustlings hint modules3` or use the `hint` watch subcommand for a
 // hint.
 
-// I AM NOT DONE
-
 fn main() {
     match std::time::SystemTime::now().duration_since(std::time::UNIX_EPOCH) {
         Ok(n) => println!("1970-01-01 00:00:00 UTC was {} seconds ago!", n.as_secs()),
