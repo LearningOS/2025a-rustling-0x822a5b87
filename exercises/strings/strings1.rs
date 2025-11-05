@@ -13,5 +13,7 @@ fn main() {
 }
 
 fn current_favorite_color() -> String {
-    "blue"
+    // both of them can change &str to String
+    "blue".to_string();
+    String::from("blue")
 }
