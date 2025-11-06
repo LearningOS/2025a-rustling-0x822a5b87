@@ -10,6 +10,9 @@ struct Wrapper <T> {
     value: T,
 }
 
+// The first <T> is the declaration of a generic parameter (introducing T for the impl block).
+// The second <T> is the usage of that declared generic parameter, specifying that the implementation
+// applies to Wrapper<T> (the generic struct instantiated with T).
 impl <T> Wrapper <T> {
     pub fn new(value: T) -> Self {
         Wrapper { value }
