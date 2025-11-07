@@ -3,10 +3,40 @@
 	This problem requires you to implement a sorting algorithm
 	you can use bubble sorting, insertion sorting, heap sorting, etc.
 */
-// I AM NOT DONE
+use std::io;
+use std::io::Write;
 
-fn sort<T>(array: &mut [T]){
-	//TODO
+fn do_sort<T>(array: &mut[T], start: usize, end: usize) where T:PartialOrd + Clone {
+    if start >= end {
+        return;
+    }
+    let mut pivot = array[(start + end - 1) / 2].clone();
+    let mut i = start;
+    let mut j = end - 1;
+
+    while i < j {
+        while array[i] < pivot {
+            i += 1;
+        }
+        while pivot < array[j] {
+            j -= 1;
+        }
+        array.swap(i, j);
+    }
+
+
+    do_sort(array, start, i);
+    do_sort(array, i + 1, end);
+}
+
+fn main() {
+    let mut vec = vec![37, 73, 57, 75, 91, 19, 46, 64];
+    sort(&mut vec);
+    assert_eq!(vec, vec![19, 37, 46, 57, 64, 73, 75, 91]);
+}
+
+fn sort<T>(array: &mut [T]) where T: PartialOrd + Clone {
+    do_sort(array, 0, array.len());
 }
 #[cfg(test)]
 mod tests {
