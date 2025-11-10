@@ -1,8 +1,7 @@
 /*
 	graph
-	This problem requires you to implement a basic graph functio
+	This problem requires you to implement a basic graph function
 */
-// I AM NOT DONE
 
 use std::collections::{HashMap, HashSet};
 use std::fmt;
@@ -29,7 +28,17 @@ impl Graph for UndirectedGraph {
         &self.adjacency_table
     }
     fn add_edge(&mut self, edge: (&str, &str, i32)) {
-        //TODO
+        let from = String::from(edge.0);
+        let to = String::from(edge.1);
+        let weight = edge.2;
+
+        let neighbours = self.adjacency_table.entry(from).or_insert_with(Vec::new);
+        neighbours.push((to, weight));
+
+        let from = String::from(edge.1);
+        let to = String::from(edge.0);
+        let neighbours = self.adjacency_table.entry(from).or_insert_with(Vec::new);
+        neighbours.push((to, weight));
     }
 }
 pub trait Graph {
@@ -37,12 +46,9 @@ pub trait Graph {
     fn adjacency_table_mutable(&mut self) -> &mut HashMap<String, Vec<(String, i32)>>;
     fn adjacency_table(&self) -> &HashMap<String, Vec<(String, i32)>>;
     fn add_node(&mut self, node: &str) -> bool {
-        //TODO
-		true
+        true
     }
-    fn add_edge(&mut self, edge: (&str, &str, i32)) {
-        //TODO
-    }
+    fn add_edge(&mut self, edge: (&str, &str, i32));
     fn contains(&self, node: &str) -> bool {
         self.adjacency_table().get(node).is_some()
     }
@@ -78,7 +84,8 @@ mod test_undirected_graph {
             (&String::from("c"), &String::from("b"), 10),
         ];
         for edge in expected_edges.iter() {
-            assert_eq!(graph.edges().contains(edge), true);
+            let edges = graph.edges();
+            assert_eq!(edges.contains(edge), true);
         }
     }
 }
